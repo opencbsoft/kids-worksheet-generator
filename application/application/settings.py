@@ -131,8 +131,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = getattr(local_settings, 'DJANGO_STATIC', '')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = getattr(local_settings, 'DJANGO_MEDIA', '')
+
 RESOURCES = os.path.join(ROOT_DIR, 'resources')
-OUTPUT = os.path.join(ROOT_DIR, 'static', 'output')
+OUTPUT = os.path.join(MEDIA_ROOT, 'generated')
 
 PDF_OPTIONS = {
     'page-size': 'A4',

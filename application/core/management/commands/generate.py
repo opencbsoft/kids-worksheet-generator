@@ -1,4 +1,4 @@
-import os
+import os, datetime
 
 from PyPDF2 import PdfFileMerger, PdfFileReader
 from django.conf import settings
@@ -44,6 +44,7 @@ class Command(BaseCommand):
             call_generator(self, options['generator'], options)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
         elif options['all']:
+            os.makedirs(os.path.join(settings.OUTPUT, 'daily'), exist_ok=True)
             generators = get_available_generators()
             generated_files = []
             for generator in generators:
@@ -51,7 +52,7 @@ class Command(BaseCommand):
             merger = PdfFileMerger()
             for filename in generated_files:
                 merger.append(filename)
-            merger.write(os.path.join(settings.OUTPUT, 'generated.pdf'))
+            merger.write(os.path.join(settings.OUTPUT, '{}.pdf'.format(datetime.date.strftime('%d%m%Y'))))
             for filename in generated_files:
                 os.unlink(filename)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
