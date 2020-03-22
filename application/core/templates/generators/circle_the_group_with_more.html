@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for item in items %}
+        <div style="padding-top:10px;height: 320px;position: relative">
+            <div style="float:left;position: relative; width: 508px; height: 320px; border: 2px solid #000000;">
+            {% for i in item.value1 %}
+                <div style="width: 100px; height: 100px;float: left;margin-top: 5px;margin-left: 20px;">
+                    <img src="{{ path }}{{ item.icon1 }}" />
+                </div>
+            {% endfor %}
+            </div>
+            <div style="float:left;position: relative; width: 508px; height: 320px; border: 2px solid #000000;margin-left: 10px;">
+            {% for i in item.value2 %}
+                <div style="width: 100px; height: 100px;float: left;margin-top: 5px;margin-left: 20px;">
+                    <img src="{{ path }}{{ item.icon2 }}" />
+                </div>
+            {% endfor %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

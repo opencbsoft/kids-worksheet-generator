@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block info %}<p>Taie si lipeste imaginea care urmeaza.</p>{% endblock %}
+{% block page-size %}1200px;{% endblock %}
+{% block content %}
+
+{% for item in items %}
+    <div class="solidborder" style="padding:17px;height: 225px;">
+    {% for food in item %}
+        <div style="float:left;width: 190px;height: 190px;position: relative">
+            <img src="{{ path }}/food/{{ food }}" width="180px;"/>
+        </div>
+    {% endfor %}
+        <div style="float:left;width: 190px;height: 190px;position: relative">
+            <img src="{{ path }}/food/{{ item.0 }}" width="180px;"/>
+        </div>
+        <div style="float:left;width: 210px;height: 210px;position: relative; border: 2px solid black; margin-left: 10px;">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endfor %}
+{% endblock %}
+{% block outter_content %}
+    <div class="clearfix"></div>
+    <div style="">
+    {% for option in options %}
+        <div class="dotted" style="float:left;width: 210px;padding-top:15px;height: 200px;margin-left: 45px;margin-top: 0px;text-align:center;">
+            <img src="{{ path }}/food/{{ option }}" width="180px;" height="180px"/>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

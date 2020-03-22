@@ -1,0 +1,113 @@
+{% load static %}
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <style type="text/css">
+        .container {
+          position: relative;
+          text-align: center;
+          color: black;
+        }
+        .clearfix::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+        .centered {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .paper {
+          background-color: #fff;
+          border: 1px solid #c1c0bd;
+          box-shadow: -1px 5px 35px -9px rgba(0,0,0,.2);
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          padding: 2rem;
+        }
+        .full-page{
+            height: 1500px;
+        }
+        h1 {
+            font-size: 80pt;
+            line-height: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header img {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          width: 120px;
+        }
+        .header h1{
+          position: absolute;
+          top: 40px;
+          left: 130px;
+          width: 320px;
+        }
+        .header h2{
+          position: absolute;
+          top: 30px;
+          left: 500px;
+          width: 600px;
+            margin: 0;
+            padding: 0;
+        }
+        .header p{
+            position: absolute;
+          top: 130px;
+          left: 130px;
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            height: 160px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        table{
+            align-content: center;
+        }
+        table td{
+            margin: 0px;
+            padding: 0px;
+        }
+        body {
+            font-family: 'Caveat', cursive;
+            font-size: 24pt;
+            margin: 0px;
+        }
+        .dotted{
+            border: 2px dotted black;
+        }
+        .solidborder{
+            border: 2px solid black;
+        }
+        #copyright{
+            position: absolute;
+            bottom: 20px;
+            right: 0px;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="paper" style="height: {% block page-size %}{{ content_height|default:1500 }}px;{% endblock %}">
+    <div class="header">
+        <img src="{{ path }}logo.jpg" height="100px">
+        <h1>Butterfly</h1>
+        <h2>NUME ____________________</h2>
+        {% block info %}<p>{{ directions }}</p>{% endblock %}
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div id="copyright"><a href="https://www.cbsoft.ro/">www.cbsoft.ro</a></div>
+</div>
+{% block outter_content %}
+{% endblock %}
+</body>
+</html>

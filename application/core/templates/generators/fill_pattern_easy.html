@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load index %}
+{% block content %}
+{% for item in items.patterns %}
+    {% with forloop.counter0 as pattern_id %}
+    <div class="solidborder" style="padding:17px;height: 225px;">
+    {% for food in item %}
+        {% with forloop.counter0 as idx %}
+            <div style="float:left;width: 190px;height: 190px;position: relative">
+                <img src="{{ path }}{{items.icons|index:pattern_id|index:food}}" />
+            </div>
+        {% endwith %}
+    {% endfor %}
+        <div style="float:left;width: 210px;height: 210px;position: relative; border: 2px solid black; margin-left: 10px;">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    {% endwith %}
+{% endfor %}
+{% endblock %}
+{% block outter_content %}
+    <div style="">
+    {% for option in items.missing %}
+        <div class="dotted" style="float:left;width: 210px;padding-top:15px;height: 200px;margin-left: 45px;margin-top: 0px;text-align:center;">
+            <img src="{{ path }}{{ option }}" width="180px;" height="180px"/>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

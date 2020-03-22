@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for item in items %}
+        <div style="padding:20px;height: 230px;align-text:center;">
+            <div style="float:left;width: 190px;height: 190px;position: relative;padding: 7px;overflow:hidden;">
+                <img src="{{ path }}{{ item.0 }}" style="position: absolute; right: -97px;"/>
+            </div>
+             <div style="float:right;width: 180px;height: 180px;position: relative;padding: 7px;overflow:hidden;">
+                <img src="{{ path }}{{ item.1 }}" style="position: absolute; left: -97px;"/>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

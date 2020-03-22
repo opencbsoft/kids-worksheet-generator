@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for pattern in items %}
+    <div class="solidborder" style="padding:20px;height: 220px;align-text:center;">
+    {% for food in pattern %}
+        <div style="float:left;width: 200px;height: 200px;position: relative;padding: 10px;padding-left: 30px;">
+            <img src="{{ path }}{{ food }}"/>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+{% endfor %}
+{% endblock %}

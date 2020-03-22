@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block info %}<p>Taie si lipeste imaginile care urmeaza.</p>{% endblock %}
+{% block page-size %}970px;{% endblock %}
+{% block content %}
+
+{% for item in items %}
+    <div class="solidborder" style="padding:17px;height: 170px;">
+    {% for food in item %}
+        <div style="float:left;width: 130px;height: 130px;position: relative; padding-top: 10px; margin-top:10px;">
+            <img src="{{ path }}/food/{{ food }}" width="120px;"/>
+        </div>
+    {% endfor %}
+        <div style="float:left;width: 130px;height: 130px;position: relative; padding-top: 10px; margin-top:10px;">
+            <img src="{{ path }}/food/{{ item.0 }}" width="120px;"/>
+        </div>
+        <div style="float:left;width: 150px;height: 150px;position: relative; border: 2px solid black; margin-left:15px">
+        </div>
+        <div style="float:left;width: 150px;height: 150px;position: relative; border: 2px solid black; margin-left:15px;">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endfor %}
+{% endblock %}
+{% block outter_content %}
+    <div class="clearfix"></div>
+    <div style="padding-top: 40px;">
+    {% for option in first_row %}
+        <div class="dotted" style="float:left;width: 150px;padding-top:15px;height: 140px;margin-left: 100px;margin-top: 10px;text-align:center;font-size: 50pt; font-family: Verdana, Arial, sans-serif">
+            <img src="{{ path }}/food/{{ option }}" width="120px;" height="120px"/>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+    <div style="padding-top:40px;">
+    {% for option in second_row %}
+        <div class="dotted" style="float:left;width: 150px;padding-top:15px;height: 140px;margin-left: 100px;margin-top: 15px;text-align:center;">
+            <img src="{{ path }}/food/{{ option }}" width="120px;" height="120px"/>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

@@ -1,0 +1,7 @@
+django
+psycopg2
+pdfkit
+lxml
+svglib
+pypdf2
+django-cron
