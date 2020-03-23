@@ -30,7 +30,7 @@ SECRET_KEY = getattr(local_settings, 'DJANGO_SECRET_KEY', 'dfgdfgdfg')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [getattr(local_settings, 'HOSTNAME', '*')]
 
 
 # Application definition

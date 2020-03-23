@@ -1,3 +1,4 @@
+import datetime
 from django.core.management import call_command
 from django_cron import CronJobBase, Schedule
 
@@ -9,4 +10,4 @@ class GenerateDaily(CronJobBase):
     code = 'core.generate_daily'
 
     def do(self):
-        call_command('generate', all=1, count=2)
+        call_command('generate', all=datetime.datetime.today().strftime('%d.%m.%Y'), count=2)
