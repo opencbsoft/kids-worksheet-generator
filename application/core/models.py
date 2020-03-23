@@ -6,4 +6,4 @@ class Board(models.Model):
     file = models.FileField(upload_to="worksheets")
 
     def __str__(self):
-        return self.file
+        return self.created.strftime('%d.%m.%Y')
