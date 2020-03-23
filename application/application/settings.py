@@ -145,6 +145,7 @@ PDF_OPTIONS = {
     'margin-bottom': '10px',
     'margin-left': '20px',
     'encoding': "UTF-8",
+    'no-outline': None,
     'orientation': 'Portrait',
     'quiet': '',
 }
