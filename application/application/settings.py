@@ -140,10 +140,10 @@ OUTPUT = os.path.join(MEDIA_ROOT, 'generated')
 
 PDF_OPTIONS = {
     'page-size': 'A4',
-    'margin-top': '0px',
-    'margin-right': '0px',
-    'margin-bottom': '0px',
-    'margin-left': '0px',
+    'margin-top': '10px',
+    'margin-right': '20px',
+    'margin-bottom': '10px',
+    'margin-left': '20px',
     'encoding': "UTF-8",
     'no-outline': None,
     'orientation': 'Portrait',
