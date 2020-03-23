@@ -21,5 +21,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('', views.index),
     path('validate/<uuid:uuid>', views.validate_email),
+    path('unsubscribe/<int:id>', views.unsubscribe),
     path('admin/', admin.site.urls),
 ]

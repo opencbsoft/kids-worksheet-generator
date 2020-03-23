@@ -19,6 +19,7 @@ class GenerateDaily(CronJobBase):
         daily = Board.objects.filter(created=today).first()
         if daily:
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
-            subscribers = list(Subscriber.objects.filter(email_validated=True).values_list('email', flat=True))
+            subscribers = list(Subscriber.objects.filter(email_validated=True).values('email', 'identifier'))
             for email in subscribers:
-                send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email)
+                ctx['unsubscribe'] = 'https://kids.cbosft.ro/unsubscribe/{}'.format(email['identifier'])
+                send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])

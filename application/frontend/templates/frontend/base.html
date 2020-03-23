@@ -130,6 +130,22 @@
                                     <h5 class="display-6 font-weight-normal text-red">A fost o eroare la validarea email-ului sau a fost deja validat.</h5>
                                 {% elif result == '2' %}
                                     <h5 class="display-6 font-weight-normal text-green">Email-ul a fost validate cu succes. In fiecare zi la ora 09:00, o sa primesti pe email un link cu pdf-ul din ziua respectiva.</h5>
+                                {% elif result == '3' %}
+                                    <h5 class="display-6 font-weight-normal text-green">Daca vrei sa nu mai primesti aceste email-uri apasa pe butonul de mai jos</h5>
+                                    <form action="/" method="post">{% csrf_token %}
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" name="action" value="unsubscribe" class="btn btn-warning btn-icon mt-3 mb-sm-0">
+                                            <span class="btn-inner--icon"><i class="ni ni-button-play"></i></span>
+                                            <span class="btn-inner--text">Dezaboneaza-te</span>
+                                        </button>
+                                        </div>
+                                      </div>
+                                    </form>
+                                {% elif result == '4' %}
+                                    <h5 class="display-6 font-weight-normal text-red">Email-ul nu a fost gasit</h5>
+                                {% elif result == '5' %}
+                                    <h5 class="display-6 font-weight-normal text-green">Ai fost dezabonat cu succes</h5>
                                 {% endif %}
                             {% else %}
                             <h5 class="display-6 font-weight-normal text-white">Aboneaza-te pentru a le primi zilnic pe email!</h5>

@@ -7,6 +7,7 @@ class Subscriber(models.Model):
     modified = models.DateTimeField(auto_now=True)
     email = models.EmailField()
     email_validated = models.BooleanField(default=False)
+    identifier = models.UUIDField(default=uuid.uuid4)
 
     def __str__(self):
         return self.email

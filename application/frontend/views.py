@@ -6,8 +6,7 @@ from django.template.loader import render_to_string
 from core.models import Board
 from frontend.models import SubscriberValidation, Subscriber
 from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
+
 
 
 def send_email(template, subject, context, to):
@@ -23,8 +22,7 @@ def send_email(template, subject, context, to):
 
 
 def index(request):
-    context = {}
-    context['boards'] = Board.objects.all()[:6]
+    context = {'boards': Board.objects.all()[:6]}
     if request.method == 'POST':
         context['result'] = '0'
         subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
@@ -44,5 +42,19 @@ def validate_email(request, uuid):
             validation.subscriber.email_validated = True
             validation.subscriber.save()
         validation.delete()
+    context['boards'] = Board.objects.all()[:6]
+    return render(request, 'frontend/index.html', context)
+
+
+def unsubscribe(request, uuid):
+    subscriber = Subscriber.objects.filter(identifier=uuid).first()
+    if subscriber:
+        context = {'result': '3'}
+    else:
+        context = {'result': '4'}
+    if request.method == 'POST':
+        if request.POST.get('action', '') == 'unsubscribe':
+            subscriber.delete()
+            context = {'result': '5'}
     context['boards'] = Board.objects.all()[:6]
     return render(request, 'frontend/index.html', context)
