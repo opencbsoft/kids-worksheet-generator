@@ -2,6 +2,7 @@ import os, datetime
 
 from PyPDF2 import PdfFileMerger, PdfFileReader
 from django.conf import settings
+from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 
 from core.models import Board
@@ -56,9 +57,10 @@ class Command(BaseCommand):
                 merger.append(filename)
             today = datetime.date.today()
             merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
+            f = open(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
+            if not Board.objects.filter(created=today).exists():
+                board = Board(file=File(f), created=today)
+                board.save()
             for filename in generated_files:
                 os.unlink(filename)
-            if not Board.objects.filter(created=today).exists():
-                board = Board(file=os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))), created=today)
-                board.save()
             self.stdout.write(self.style.SUCCESS('Successfully generated'))

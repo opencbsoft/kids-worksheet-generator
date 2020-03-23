@@ -18,7 +18,6 @@ class Main(Generator):
 
         values = [i for i in range(1, max_value+1)]
         results = []
-
         while len(results) != self.count:
             result = []
             for i in range(4):
@@ -27,7 +26,6 @@ class Main(Generator):
                 if value not in results and value[0] != value[1]:
                     result.append({'value1': range(value[0]), 'value2': range(value[1]), 'icon1': random.choice(self.icons), 'icon2': random.choice(self.icons)})
             results.append(result)
-        print(results)
         self.data = results
         return results
 
