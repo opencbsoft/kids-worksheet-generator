@@ -152,3 +152,13 @@ PDF_OPTIONS = {
 CRON_CLASSES = [
     "core.cron.GenerateDaily",
 ]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SERVER_EMAIL = 'KIDS <noreply@bapp.ro>'
+DEFAULT_FROM_EMAIL = 'KIDS <noreply@bapp.ro>'
+EMAIL_USE_SSL = False
+EMAIL_HOST = getattr(local_settings, 'EMAIL_HOST', '')
+EMAIL_HOST_USER = getattr(local_settings, 'EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = getattr(local_settings, 'EMAIL_HOST_PASSWORD', '')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_FROM = 'KIDS <noreply@bapp.ro>'

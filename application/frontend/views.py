@@ -1,6 +1,22 @@
 from django.shortcuts import render
+from django.utils.html import strip_tags
+from django.conf import settings
+
 from core.models import Board
 from frontend.models import SubscriberValidation, Subscriber
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+
+
+def send_email(template, subject, context, to):
+    ctx = Context(context)
+    html_content = get_template(template).render(ctx)
+    text_content = strip_tags(template)
+    msg = EmailMultiAlternatives(subject, text_content, settings.FROM_EMAIL, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    return True
 
 
 def index(request):
@@ -11,7 +27,8 @@ def index(request):
         subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
         if not subscriber.email_validated:
             validation = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
-
+            ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}
+            send_email('frontend/validate_email.html', 'Confirma adresa ta de email', ctx, validation.subscriber.email)
     return render(request, 'frontend/index.html', context)
 
 
