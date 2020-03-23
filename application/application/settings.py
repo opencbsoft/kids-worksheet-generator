@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cron',
     'core',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -129,10 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = getattr(local_settings, 'DJANGO_STATIC', '')
+STATIC_ROOT = getattr(local_settings, 'DJANGO_STATIC', os.path.join(ROOT_DIR, 'static'))
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = getattr(local_settings, 'DJANGO_MEDIA', '')
+MEDIA_ROOT = getattr(local_settings, 'DJANGO_MEDIA', os.path.join(ROOT_DIR, 'media'))
 
 RESOURCES = os.path.join(ROOT_DIR, 'resources')
 OUTPUT = os.path.join(MEDIA_ROOT, 'generated')

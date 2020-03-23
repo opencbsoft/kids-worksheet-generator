@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django_cron import CronJobBase, Schedule
 
 
@@ -8,4 +9,4 @@ class GenerateDaily(CronJobBase):
     code = 'core.generate_daily'
 
     def do(self):
-        pass
+        call_command('generate', all=1, count=2)

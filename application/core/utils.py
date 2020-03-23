@@ -46,8 +46,12 @@ class Generator(object):
         """
             This function populates the bare minimum of a context data
         """
+        if settings.DEBUG:
+            path = 'http://127.0.0.1:8000/static/'
+        else:
+            path = 'https://kids.cbsoft.ro/static/'
         context = {
-            'path': 'http://127.0.0.1:8000/static/',
+            'path': path,
             'directions': _(self.directions)
         }
         if self.data:
