@@ -56,5 +56,6 @@ def unsubscribe(request, uuid):
         if request.POST.get('action', '') == 'unsubscribe':
             subscriber.delete()
             context = {'result': '5'}
+    context['uuid'] = uuid
     context['boards'] = Board.objects.all()[:6]
     return render(request, 'frontend/index.html', context)

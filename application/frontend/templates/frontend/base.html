@@ -132,7 +132,7 @@
                                     <h5 class="display-6 font-weight-normal text-green">Email-ul a fost validate cu succes. In fiecare zi la ora 09:00, o sa primesti pe email un link cu pdf-ul din ziua respectiva.</h5>
                                 {% elif result == '3' %}
                                     <h5 class="display-6 font-weight-normal text-green">Daca vrei sa nu mai primesti aceste email-uri apasa pe butonul de mai jos</h5>
-                                    <form action="/" method="post">{% csrf_token %}
+                                    <form action="/unsubscribe/{{ uuid }}" method="post">{% csrf_token %}
                                       <div class="row">
                                         <div class="col-md-12">
                                             <button type="submit" name="action" value="unsubscribe" class="btn btn-warning btn-icon mt-3 mb-sm-0">
