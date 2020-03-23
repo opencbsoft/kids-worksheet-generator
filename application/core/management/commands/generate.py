@@ -50,6 +50,7 @@ class Command(BaseCommand):
                 specific_date = datetime.datetime.strptime(options['all'], '%d.%m.%Y')
             except:
                 specific_date = datetime.datetime.today()
+            print('Printing for date: {}'.format(specific_date.strftime('%d.%m.%Y')))
             os.makedirs(os.path.join(settings.MEDIA_ROOT, 'worksheets'), exist_ok=True)
             generators = get_available_generators()
             generated_files = []
@@ -60,8 +61,8 @@ class Command(BaseCommand):
                 merger.append(filename)
             today = datetime.date.today()
             merger.write(os.path.join(settings.MEDIA_ROOT, 'worksheets', '{}.pdf'.format(specific_date.strftime('%d-%m-%Y'))))
-            if not Board.objects.filter(created=today).exists():
-                board = Board(created=today)
+            if not Board.objects.filter(created=specific_date).exists():
+                board = Board(created=specific_date)
                 board.file.name = os.path.join('worksheets/{}.pdf'.format(specific_date.strftime('%d-%m-%Y')))
                 board.save()
             for filename in generated_files:
