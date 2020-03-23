@@ -4,6 +4,8 @@ from PyPDF2 import PdfFileMerger, PdfFileReader
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
+from core.models import Board
+
 
 def get_available_generators():
     commands = []
@@ -44,7 +46,7 @@ class Command(BaseCommand):
             call_generator(self, options['generator'], options)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
         elif options['all']:
-            os.makedirs(os.path.join(settings.OUTPUT, 'daily'), exist_ok=True)
+            os.makedirs(os.path.join(settings.OUTPUT, 'worksheets'), exist_ok=True)
             generators = get_available_generators()
             generated_files = []
             for generator in generators:
@@ -52,7 +54,11 @@ class Command(BaseCommand):
             merger = PdfFileMerger()
             for filename in generated_files:
                 merger.append(filename)
-            merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(datetime.date.today().strftime('%d%m%Y'))))
+            today = datetime.date.today()
+            merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
             for filename in generated_files:
                 os.unlink(filename)
+            if not Board.objects.filter(created=today).exists():
+                board = Board(file=os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))), created=today)
+                board.save()
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
