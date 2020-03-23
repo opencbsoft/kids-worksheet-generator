@@ -52,7 +52,7 @@ class Command(BaseCommand):
             merger = PdfFileMerger()
             for filename in generated_files:
                 merger.append(filename)
-            merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(datetime.date.strftime('%d%m%Y'))))
+            merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(datetime.date.today().strftime('%d%m%Y'))))
             for filename in generated_files:
                 os.unlink(filename)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
