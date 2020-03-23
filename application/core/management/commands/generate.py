@@ -1,9 +1,8 @@
 import os, datetime
 
-from PyPDF2 import PdfFileMerger, PdfFileReader
+from PyPDF2 import PdfFileMerger
 from django.conf import settings
-from django.core.files import File
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from core.models import Board
 
