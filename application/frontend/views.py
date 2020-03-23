@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from core.models import Board
 from frontend.models import SubscriberValidation, Subscriber
@@ -10,8 +11,7 @@ from django.template import Context
 
 
 def send_email(template, subject, context, to):
-    ctx = Context(context)
-    html_content = get_template(template).render(ctx)
+    html_content = render_to_string(template_name=template, context=context)
     text_content = strip_tags(template)
     msg = EmailMultiAlternatives(subject, text_content, settings.FROM_EMAIL, [to])
     msg.attach_alternative(html_content, "text/html")
