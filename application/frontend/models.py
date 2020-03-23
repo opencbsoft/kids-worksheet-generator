@@ -17,4 +17,4 @@ class SubscriberValidation(models.Model):
     code = models.UUIDField(default=uuid.uuid4)
 
     def __str__(self):
-        return self.code
+        return str(self.code)
