@@ -7,3 +7,6 @@ class Board(models.Model):
 
     def __str__(self):
         return self.created.strftime('%d.%m.%Y')
+
+    class Meta:
+        ordering = ['created']
