@@ -13,7 +13,7 @@ from django.template import Context
 def send_email(template, subject, context, to):
     html_content = render_to_string(template_name=template, context=context)
     text_content = strip_tags(template)
-    msg = EmailMultiAlternatives(subject, text_content, settings.FROM_EMAIL, [to])
+    msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_FROM, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     return True
