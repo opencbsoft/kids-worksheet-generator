@@ -114,6 +114,12 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-lg-6 text-center">
                             <h1 class="text-white display-1">Planse de lucru</h1>
+                            {% if result %}
+                                {% if result == 0 %}
+                                    <h5 class="display-6 font-weight-normal text-green">Un email de validare a fost trimis pe adresa completata.</h5>
+
+                                {% endif %}
+                            {% else %}
                             <h5 class="display-6 font-weight-normal text-white">Aboneaza-te pentru a le primi zilnic pe email!</h5>
                             <form action="/" method="post">{% csrf_token %}
                               <div class="row">
@@ -131,7 +137,7 @@
                                 </div>
                               </div>
                             </form>
-
+                            {% endif %}
                             <div class="btn-wrapper mt-4">
 
                             </div>
