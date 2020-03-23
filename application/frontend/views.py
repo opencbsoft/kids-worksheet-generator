@@ -26,7 +26,7 @@ def index(request):
         context['result'] = '0'
         subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
         if not subscriber.email_validated:
-            validation = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
+            validation, created = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
             ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}
             send_email('frontend/validate_email.html', 'Confirma adresa ta de email', ctx, validation.subscriber.email)
     return render(request, 'frontend/index.html', context)
