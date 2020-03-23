@@ -3,6 +3,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from headless_pdfkit import generate_pdf
 import pdfkit
 from django.utils.text import slugify
 
@@ -69,6 +70,12 @@ class Generator(object):
             content = render_to_string(self.template, self.get_context_data(i))
             folder = os.path.join(settings.OUTPUT, slugify(self.name))
             os.makedirs(folder, exist_ok=True)
-            pdfkit.from_string(content, os.path.join(folder, 'generated{}.pdf'.format(i)), options=settings.PDF_OPTIONS)
+            if settings.ALLOWED_HOSTS == '*':
+                # this is only valid for local deployment
+                pdfkit.from_string(content, os.path.join(folder, 'generated{}.pdf'.format(i)), options=settings.PDF_OPTIONS)
+            else:
+                res = generate_pdf(content, options=settings.PDF_OPTIONS)
+                with open(os.path.join(folder, 'generated{}.pdf'.format(i)), 'wb') as w:
+                    w.write(res)
             generated.append(os.path.join(folder, 'generated{}.pdf'.format(i)))
         return generated
