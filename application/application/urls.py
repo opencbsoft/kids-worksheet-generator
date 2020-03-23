@@ -22,5 +22,5 @@ urlpatterns = [
     path('', views.index),
     path('validate/<uuid:uuid>', views.validate_email),
     path('unsubscribe/<uuid:uuid>', views.unsubscribe),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 ]
