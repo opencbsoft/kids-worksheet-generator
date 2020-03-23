@@ -47,7 +47,7 @@ class Command(BaseCommand):
             call_generator(self, options['generator'], options)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
         elif options['all']:
-            os.makedirs(os.path.join(settings.OUTPUT, 'worksheets'), exist_ok=True)
+            os.makedirs(os.path.join(settings.MEDIA_ROOT, 'worksheets'), exist_ok=True)
             generators = get_available_generators()
             generated_files = []
             for generator in generators:
@@ -56,7 +56,7 @@ class Command(BaseCommand):
             for filename in generated_files:
                 merger.append(filename)
             today = datetime.date.today()
-            merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
+            merger.write(os.path.join(settings.MEDIA_ROOT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
             if not Board.objects.filter(created=today).exists():
                 board = Board(created=today)
                 board.file.name = os.path.join('worksheets/{}.pdf'.format(today.strftime('%d-%m-%Y')))
