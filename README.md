@@ -29,7 +29,7 @@ class Main(Generator):
         return context
 ```
 
-4. Create your HTML template inside core/templates/generators/
+4. Create your HTML template inside core/templates/generators/<new_generator>.html
 ```jinja2
 {% extends 'base.html' %}
 {% block content %}
@@ -55,3 +55,22 @@ class Main(Generator):
 
 {% endblock %}
 ```
+
+5. Generate your pdf page using the following command:
+```shell script
+./manage.py generate -g <new_generator> --count 1
+```
+6. See your generated pdf in the <MEDIA_ROOT>/generated/<new_generator>/generated0.pdf
+
+
+## Ideeas of new generators:
+- [Maze generator](https://github.com/boppreh/maze)
+- [Cut and sort the numbers 1-10](https://cdn.education.com/worksheet-image/917702/ordering-numbers-10.gif)
+- [Match wearing with the weather seasons] (https://cdn.education.com/worksheet-image/128198/weather-wear-matching-weather-seasons.png)
+- Match the icon with it's shadow
+- 
+
+## Thanks to
+[freepik](https://www.freepik.com) - icons
+[Website template] (https://www.creative-tim.com/product/argon-design-system) - Frontend 
+[PidginHost](https://www.pidginhost.com) - hosting
