@@ -9,4 +9,4 @@ class Board(models.Model):
         return self.created.strftime('%d.%m.%Y')
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
