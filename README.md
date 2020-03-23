@@ -72,5 +72,7 @@ class Main(Generator):
 
 ## Thanks to
 [freepik](https://www.freepik.com) - icons
+
 [Website template] (https://www.creative-tim.com/product/argon-design-system) - Frontend 
+
 [PidginHost](https://www.pidginhost.com) - hosting
