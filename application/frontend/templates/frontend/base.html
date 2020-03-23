@@ -117,7 +117,10 @@
                             {% if result %}
                                 {% if result == 0 %}
                                     <h5 class="display-6 font-weight-normal text-green">Un email de validare a fost trimis pe adresa completata.</h5>
-
+                                {% elif result == 1 %}
+                                    <h5 class="display-6 font-weight-normal text-red">A fost o eroare la validarea email-ului</h5>
+                                {% elif result == 2 %}
+                                    <h5 class="display-6 font-weight-normal text-green">Email-ul a fost generat cu succes</h5>
                                 {% endif %}
                             {% else %}
                             <h5 class="display-6 font-weight-normal text-white">Aboneaza-te pentru a le primi zilnic pe email!</h5>

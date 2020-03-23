@@ -7,7 +7,8 @@ def index(request):
     context = {}
     context['boards'] = Board.objects.all()[:6]
     if request.method == 'POST':
-        context = {'result': 0}
+        context['result'] = 0
+
     return render(request, 'frontend/index.html', context)
 
 
