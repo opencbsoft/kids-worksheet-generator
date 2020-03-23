@@ -59,7 +59,7 @@ class Command(BaseCommand):
             merger.write(os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y'))))
             if not Board.objects.filter(created=today).exists():
                 board = Board(created=today)
-                board.file.name = os.path.join(settings.OUTPUT, 'worksheets', '{}.pdf'.format(today.strftime('%d-%m-%Y')))
+                board.file.name = os.path.join('worksheets/{}.pdf'.format(today.strftime('%d-%m-%Y')))
                 board.save()
             for filename in generated_files:
                 os.unlink(filename)
