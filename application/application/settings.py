@@ -28,7 +28,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = getattr(local_settings, 'DJANGO_SECRET_KEY', 'dfgdfgdfg')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getattr(local_settings, 'DEBUG', True)
 
 ALLOWED_HOSTS = [getattr(local_settings, 'HOSTNAME', '*')]
 
@@ -145,7 +145,6 @@ PDF_OPTIONS = {
     'margin-bottom': '10px',
     'margin-left': '20px',
     'encoding': "UTF-8",
-    'no-outline': None,
     'orientation': 'Portrait',
     'quiet': '',
 }
