@@ -70,7 +70,7 @@ class Generator(object):
             content = render_to_string(self.template, self.get_context_data(i))
             folder = os.path.join(settings.OUTPUT, slugify(self.name))
             os.makedirs(folder, exist_ok=True)
-            if settings.ALLOWED_HOSTS == '*':
+            if '*' in settings.ALLOWED_HOSTS:
                 # this is only valid for local deployment
                 pdfkit.from_string(content, os.path.join(folder, 'generated{}.pdf'.format(i)), options=settings.PDF_OPTIONS)
             else:
