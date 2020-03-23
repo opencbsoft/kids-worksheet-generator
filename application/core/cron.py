@@ -20,4 +20,5 @@ class GenerateDaily(CronJobBase):
         if daily:
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True).values_list('email', flat=True))
-            send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, subscribers)
+            for email in subscribers:
+                send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email)
