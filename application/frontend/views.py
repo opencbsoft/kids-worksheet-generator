@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from core.models import Board
 from frontend.models import SubscriberValidation, Subscriber
 from django.core.mail import EmailMultiAlternatives
-from django.core.validators import validate_email_address
+from django.core.validators import validate_email as validate_email_address
 
 
 def send_email(template, subject, context, to):
