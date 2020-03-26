@@ -8,7 +8,7 @@ class Main(Generator):
     years = [3, 4, 5]
     directions = 'Decupeaza si lipseste literele si cifrele in zonele dedicate lor.'
     template = 'generators/cut_and_match.html'
-    content_height = 1100
+    content_height = 1050
 
     def generate_data(self):
         if self.extra:

@@ -162,3 +162,4 @@ EMAIL_HOST_PASSWORD = getattr(local_settings, 'EMAIL_HOST_PASSWORD', '')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_FROM = 'KIDS <noreply@bapp.ro>'
+SELENIUM_URL = getattr(local_settings, 'SELENIUM_URL')

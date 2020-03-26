@@ -6,3 +6,4 @@ svglib
 pypdf2
 django-cron
 headless-pdfkit
+selenium

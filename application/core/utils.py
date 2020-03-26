@@ -1,11 +1,52 @@
 import os
+import json
+import base64
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from selenium import webdriver
+import urllib.parse
+from datauri import DataURI
 
-from headless_pdfkit import generate_pdf
 import pdfkit
 from django.utils.text import slugify
+
+
+def send_devtools(driver, cmd, params=None):
+    if params is None:
+        params = {}
+    resource = "/session/%s/chromium/send_command_and_get_result" % driver.session_id
+    url = driver.command_executor._url + resource
+    body = json.dumps({'cmd': cmd, 'params': params})
+    response = driver.command_executor._request('POST', url, body)
+    if response.get('status'):
+        raise Exception(response.get('value'))
+    return response.get('value')
+
+
+def selenium_process_html(html_content, output):
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('headless')
+
+    capabilities = {
+        'browserName': 'chrome',
+        'javascriptEnabled': True,
+    }
+    capabilities.update(chrome_options.to_capabilities())
+    driver = webdriver.Remote(settings.SELENIUM_URL, desired_capabilities=capabilities)
+    calculated_print_options = {
+        'landscape': False,
+        'displayHeaderFooter': False,
+        'printBackground': True,
+        'preferCSSPageSize': True,
+    }
+    made = DataURI.make('text/html', charset='utf-8', base64=True, data=html_content)
+    driver.get(made)
+    result = send_devtools(driver, "Page.printToPDF", calculated_print_options)
+    with open(output, 'wb') as file:
+        file.write(base64.b64decode(result['data']))
+    driver.quit()
+    return True
 
 
 class Generator(object):
@@ -15,7 +56,7 @@ class Generator(object):
     template = None
     icons_folder = None
     data = None  # Will be populated by generate_data
-    content_height = 1500
+    content_height = 1450
     selected_icons = None
 
     def __init__(self, count=10, extra=None):
@@ -47,10 +88,7 @@ class Generator(object):
         """
             This function populates the bare minimum of a context data
         """
-        if settings.DEBUG:
-            path = 'http://127.0.0.1:8000/static/'
-        else:
-            path = 'https://kids.cbsoft.ro/static/'
+        path = 'https://kids.cbsoft.ro/static/'
         context = {
             'path': path,
             'directions': _(self.directions)
@@ -70,6 +108,9 @@ class Generator(object):
             content = render_to_string(self.template, self.get_context_data(i))
             folder = os.path.join(settings.OUTPUT, slugify(self.name))
             os.makedirs(folder, exist_ok=True)
-            pdfkit.from_string(content, os.path.join(folder, 'generated{}.pdf'.format(i)), options=settings.PDF_OPTIONS)
+            if settings.SELENIUM_URL:
+                selenium_process_html(content, os.path.join(folder, 'generated{}.pdf'.format(i)))
+            else:
+                pdfkit.from_string(content, os.path.join(folder, 'generated{}.pdf'.format(i)), options=settings.PDF_OPTIONS)
             generated.append(os.path.join(folder, 'generated{}.pdf'.format(i)))
         return generated

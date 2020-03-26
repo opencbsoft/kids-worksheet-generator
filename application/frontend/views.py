@@ -31,6 +31,7 @@ def index(request):
                 validation, created = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
                 ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}
                 send_email('frontend/validate_email.html', 'Confirma adresa ta de email', ctx, validation.subscriber.email)
+    context['abonati'] = Subscriber.objects.count()
     return render(request, 'frontend/index.html', context)
 
 
