@@ -7,3 +7,4 @@ pypdf2
 django-cron
 headless-pdfkit
 selenium
+python-datauri
