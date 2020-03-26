@@ -126,6 +126,8 @@
                             {% if result %}
                                 {% if result == '0' %}
                                     <h5 class="display-6 font-weight-normal text-green">Un email de validare a fost trimis pe adresa de email completata de tine. ATENTIE! Verifica si directorul SPAM sau JUNK!</h5>
+                                {% elif result == '7' %}
+                                    <h5 class="display-6 font-weight-normal text-red">Adresa de email este incorecta. <a href="/">Incercati din nou</a></h5>
                                 {% elif result == '1' %}
                                     <h5 class="display-6 font-weight-normal text-red">A fost o eroare la validarea email-ului sau a fost deja validat.</h5>
                                 {% elif result == '2' %}
@@ -166,7 +168,7 @@
                             </form>
                             {% endif %}
                             <div class="btn-wrapper mt-4">
-                                In momentul de fata sunt {{ abonati }} abonati.
+                                Pe email va ajunge numai daca este confirmata adresa de email. Altfel va asteptam zilnic pe acest site pentru a putea descarca ultimele planse adaugate.
                             </div>
                         </div>
                     </div>

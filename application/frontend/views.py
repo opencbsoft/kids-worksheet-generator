@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from core.models import Board
 from frontend.models import SubscriberValidation, Subscriber
 from django.core.mail import EmailMultiAlternatives
-
+from django.core.validators import validate_email_address
 
 
 def send_email(template, subject, context, to):
@@ -26,11 +26,17 @@ def index(request):
     if request.method == 'POST':
         context['result'] = '0'
         if request.POST.get('email'):
-            subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
-            if not subscriber.email_validated:
-                validation, created = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
-                ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}
-                send_email('frontend/validate_email.html', 'Confirma adresa ta de email', ctx, validation.subscriber.email)
+            email = request.POST.get('email').lower()
+            try:
+                validate_email_address(email)
+            except:
+                context['result'] = '7'
+            else:
+                subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
+                if not subscriber.email_validated:
+                    validation, created = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
+                    ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}
+                    send_email('frontend/validate_email.html', 'Confirma adresa ta de email', ctx, validation.subscriber.email)
     context['abonati'] = Subscriber.objects.count()
     return render(request, 'frontend/index.html', context)
 
