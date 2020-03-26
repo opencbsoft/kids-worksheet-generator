@@ -21,8 +21,8 @@ def call_generator(c, generator, options):
     try:
         mod = __import__('core.generators.{}'.format(generator), fromlist=['Main'])
         klass = getattr(mod, 'Main')
-    except:
-        c.stderr.write(c.style.ERROR('Could not find the specific generator {}'.format('core.generators.{}'.format(generator))))
+    except Exception as e:
+        c.stderr.write(c.style.ERROR('Could not find the specific generator {} Error: {}'.format('core.generators.{}'.format(generator), e)))
         return 0
     generator = klass(options['count'], options.get('extra'))
     return generator.render()
