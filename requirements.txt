@@ -8,3 +8,4 @@ django-cron
 headless-pdfkit
 selenium
 python-datauri
+django-axes
