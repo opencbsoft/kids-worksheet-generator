@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load index %}
+{% block content %}
+    <div>
+    {% for item in items %}
+        <div style="float:left;width: 86px;height: 75px;margin-right: 13px;margin-top: 30px;text-align:center;font-size: 34pt; font-family: Verdana, Arial, sans-serif; padding-top: 15px;border: 2px solid gray">
+            {{ item }}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

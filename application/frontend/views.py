@@ -32,7 +32,7 @@ def index(request):
             except:
                 context['result'] = '7'
             else:
-                subscriber, created = Subscriber.objects.get_or_create(email=request.POST.get('email'))
+                subscriber, created = Subscriber.objects.get_or_create(email=email)
                 if not subscriber.email_validated:
                     validation, created = SubscriberValidation.objects.get_or_create(subscriber=subscriber)
                     ctx = {'url': 'https://kids.cbsoft.ro/validate/{}'.format(validation.code)}

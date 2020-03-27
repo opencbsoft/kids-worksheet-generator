@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load index %}
+{% block content %}
+   {% for key,value in items.items %}
+   <div style="height: 220px;width: 1000px;position: relative;{% if not forloop.last %}border-bottom: 2px solid darkgray;{% endif %}">
+    <span style="position: absolute;left: 30px;top: 0px;width:100px;padding-right:40px;text-align:center;height:220px;line-height:220px;font-size: 100pt; font-family: Tahoma;display: block;border-right: 2px solid darkgray">{{ key }}</span>
+    <div style="position: absolute;left: 190px;top: 0px;width: 800px;height: 220px;">
+       {% for letter in value %}
+           <span style="float:left;font-size: 90pt; margin-top:-30px;width: 140px;margin-left: 50px;">{{ letter }}<br/><span style="font-size: 40pt;">&#9711;</span></span>
+       {% endfor %}
+    </div>
+   </div>
+   {% endfor %}
+{% endblock %}
