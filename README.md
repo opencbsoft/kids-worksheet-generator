@@ -64,10 +64,8 @@ class Main(Generator):
 
 
 ## Ideeas of new generators:
-- [Maze generator](https://github.com/boppreh/maze)
 - [Cut and sort the numbers 1-10](https://cdn.education.com/worksheet-image/917702/ordering-numbers-10.gif)
 - [Match wearing with the weather seasons] (https://cdn.education.com/worksheet-image/128198/weather-wear-matching-weather-seasons.png)
-- Match the icon with it's shadow
 - Numbers 1-10 dotted so that the kid can trace it with the pen
 
 ## Thanks to
