@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load index %}
+{% block content %}
+    <div style="width: 1100px;height: 1000px;font-family: Tahoma;">
+   {% for item in items %}
+   <div style="border:0px solid black;float:left; width: 150px;height: 80px;margin-bottom: 84px;margin-right:0px;line-height: 40px;text-align: right;padding-right: 25px;">
+    {{ item.0 }}<br/> {{ operation }} &nbsp;&nbsp;{{ item.1 }}
+    <hr style="border-bottom: 2px solid black;width: 70px;margin-left: 80px;"/>
+   </div>
+   {% endfor %}
+   </div>
+{% endblock %}

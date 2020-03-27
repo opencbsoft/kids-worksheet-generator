@@ -40,7 +40,7 @@ def toHTML(grid, start, end, cell_size=10):
 
 
 class Main(Generator):
-    name = 'Enter the maze and exit successfully'
+    name = 'Enter the maze and exit successfully medium'
     years = [3, 4, 5]
     directions = 'Alege o intrare in labirint si incearca sa iesi pe partea cealalta'
     template = 'generators/maze.html'
