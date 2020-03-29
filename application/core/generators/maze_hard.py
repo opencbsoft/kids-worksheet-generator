@@ -46,9 +46,17 @@ class Main(Generator):
     template = 'generators/maze.html'
 
     def generate_data(self):
-        m = Maze()
-        m.generator = Prims(20, 20)
-        m.generate()
-        m.generate_entrances()
-        self.data = toHTML(m.grid, m.start, m.end, 25)
+        results = []
+        for i in range(self.count):
+            m = Maze()
+            m.generator = Prims(20, 20)
+            m.generate()
+            m.generate_entrances()
+            results.append(toHTML(m.grid, m.start, m.end, 25))
+        self.data = results
         return self.data
+
+    def get_context_data(self, iteration):
+        context = super(Main, self).get_context_data(iteration)
+        context['items'] = context['items'][iteration]
+        return context

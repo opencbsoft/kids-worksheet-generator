@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+   {% for word in items.words %}
+    <div style="float:left;width: 250px; height: 80px;font-size: 40pt;">{{ word }}</div>
+   {% endfor %}
+   <div style="margin-top:200px;">
+       {% for row in items.grid %}
+           {% for letter in row %}
+               <div style="float:left; border: 2px solid darkblue;padding: 10px;font-family: Tahoma;text-align:center;font-size: 50pt;width: 120px;height: 100px;">{{ letter }}</div>
+           {% endfor %}
+       {% endfor %}
+    </div>
+{% endblock %}

@@ -1,5 +1,4 @@
 import random
-import string
 from core.utils import Generator
 
 
@@ -8,12 +7,13 @@ class Main(Generator):
 	years = [5, 6]
 	directions = 'Completeaza literele lipsa in zonele dedicate lor.'
 	template = 'generators/missing_letters.html'
+	LETTERS = 'ABCDEFGHIJKLMNOPQRSȘTȚUVWXYZ'
 
 	def generate_data(self):
 		results = []
 		for i in range(self.count):
 			result = []
-			letters = list(string.ascii_lowercase)
+			letters = self.LETTERS
 			for index in range(6):
 				sub_list = letters[index * 5: (index + 1) * 5]
 				missing = []
