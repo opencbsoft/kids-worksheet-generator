@@ -293,15 +293,17 @@ class WordGrid:
 class Main(Generator):
     name = 'Word search Easy'
     years = [5, 6, 7]
-    directions = 'Cauta cuvintele pe orizontala in tabelul de mai jos.'
+    directions = 'Cauta cuvintele in tabel.'
     template = 'generators/wordsearch_easy.html'
 
     def generate_data(self):
-        words = "CAINE,PISICA,RATA,PAINE,CAL"
-        selected_words = words.split(',')
+        bag_of_words = []
+        bag_of_words.append(['CÂINE', 'PISICĂ', 'CAL', 'RAȚĂ', 'GĂINĂ', 'COCOȘ', 'PUI', 'PUIȘOR', 'MĂGAR', 'IED', 'CAPRĂ', 'ȚAP', 'PORC', 'PURCEL', 'OAIE', 'VACĂ', 'VIȚEL'])
+        bag_of_words.append('Mugure,frunză,petală,senin,cer,fluture,albină,polen,zambilă,ghiocel,iarbă,copac,floare,verde,soare'.upper().split(','))
         results = []
         for i in range(self.count):
-            grid = WordGrid(selected_words, 7, 7)
+            selected_words = random.sample(random.choice(bag_of_words), 8)
+            grid = WordGrid(selected_words, 7, 8)
             grid.print()
             results.append({'grid': grid.get_grid(), 'words': selected_words})
         self.data = results

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
    {% for word in items.words %}
-    <div style="float:left;width: 250px; height: 80px;font-size: 40pt;">{{ word }}</div>
+    <div style="float:left;width: 250px; height: 80px;font-size: 40pt;text-align: center;font-family: Tahoma">{{ word|lower }}</div>
    {% endfor %}
    <div style="margin-top:200px;">
        {% for row in items.grid %}
