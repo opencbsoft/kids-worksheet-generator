@@ -1,5 +1,4 @@
 import random
-import string
 from core.utils import Generator
 
 
@@ -14,7 +13,7 @@ class Main(Generator):
 		results = []
 		for i in range(self.count):
 			result = []
-			letters = string.ascii_uppercase
+			letters = list(self.LETTERS)
 			for index in range(6):
 				sub_list = letters[index * 5: (index + 1) * 5]
 				missing = []
@@ -22,7 +21,7 @@ class Main(Generator):
 					while len(missing) < 1:
 						random_position = random.randint(1, 3)
 						if len(result) > 5:
-							upper = (index-2) * 5 + random_position
+							upper = (index - 2) * 5 + random_position
 							if result[upper] != "":
 								missing.append(random_position)
 						else:

@@ -14,7 +14,7 @@ class Main(Generator):
 		results = []
 		for i in range(self.count):
 			result = []
-			letters = string.ascii_uppercase
+			letters = list(self.LETTERS)
 			for index in range(6):
 				sub_list = letters[index * 5: (index + 1) * 5]
 				missing = []
