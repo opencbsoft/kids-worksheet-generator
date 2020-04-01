@@ -1,4 +1,5 @@
 import random
+import string
 from core.utils import Generator
 
 
@@ -13,7 +14,7 @@ class Main(Generator):
 		results = []
 		for i in range(self.count):
 			result = []
-			letters = self.LETTERS
+			letters = string.ascii_uppercase
 			for index in range(6):
 				sub_list = letters[index * 5: (index + 1) * 5]
 				missing = []
