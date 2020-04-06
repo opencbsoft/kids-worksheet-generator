@@ -38,7 +38,7 @@ def send_mass_html_mail(datatuple, fail_silently=False):
 
 
 class GenerateDaily(CronJobBase):
-    RUN_AT_TIMES = ['5:00']
+    RUN_AT_TIMES = ['6:00']
 
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
     code = 'core.generate_daily'
