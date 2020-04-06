@@ -15,9 +15,10 @@ class GenerateDaily(CronJobBase):
 
     def do(self):
         today = datetime.datetime.today()
-        call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
         daily = Board.objects.filter(created=today).first()
-        if daily:
+        if not daily:
+            call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
+            daily = Board.objects.filter(created=today).first()
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True, email='cristi@cbsoft.ro').values('email', 'identifier'))
             for email in subscribers:
