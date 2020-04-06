@@ -50,7 +50,7 @@ class GenerateDaily(CronJobBase):
             call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
         daily = Board.objects.filter(created=today).first()
         if daily:
-            connection = get_connection()
+
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True, email='cristi@cbsoft.ro').values('email', 'identifier'))
             messages = []
@@ -58,9 +58,10 @@ class GenerateDaily(CronJobBase):
                 ctx['unsubscribe'] = 'https://kids.cbosft.ro/unsubscribe/{}'.format(email['identifier'])
                 message = render_to_string('frontend/daily_email.html', ctx)
                 text = ''
-                msg = EmailMultiAlternatives('Plansa zilei {}'.format(today.strftime('%d.%m.%Y'), text, settings.EMAIL_FROM, [email['email']], connection=connection))
+                msg = EmailMultiAlternatives('Plansa zilei {}'.format(today.strftime('%d.%m.%Y'), text, settings.EMAIL_FROM, [email['email']]))
                 msg.attach_alternative(message, "text/html")
                 messages.append(msg)
                 #datatuple.append(('Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), text, message, email['email']))
                 #send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])
+            connection = get_connection(fail_silently=False)
             print(connection.send_messages(messages))
