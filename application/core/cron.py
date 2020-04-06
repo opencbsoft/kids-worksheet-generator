@@ -50,7 +50,6 @@ class GenerateDaily(CronJobBase):
             call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
         daily = Board.objects.filter(created=today).first()
         if daily:
-            print('daily')
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True).values('email', 'identifier'))
             connection = get_connection(fail_silently=False)
