@@ -57,11 +57,10 @@ class GenerateDaily(CronJobBase):
             for email in subscribers:
                 ctx['unsubscribe'] = 'https://kids.cbosft.ro/unsubscribe/{}'.format(email['identifier'])
                 message = render_to_string('frontend/daily_email.html', ctx)
-                text = ''
+                text = strip_tags(message)
                 msg = EmailMultiAlternatives('Plansa zilei {}'.format(today.strftime('%d.%m.%Y'), text, settings.EMAIL_FROM, [email['email']]))
                 msg.attach_alternative(message, "text/html")
                 messages.append(msg)
-                #datatuple.append(('Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), text, message, email['email']))
                 #send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])
             connection = get_connection(fail_silently=False)
             print(connection.send_messages(messages))
