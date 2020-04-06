@@ -38,7 +38,7 @@ def send_mass_html_mail(datatuple, fail_silently=False):
 
 
 class GenerateDaily(CronJobBase):
-    RUN_AT_TIMES = ['6:00']
+    RUN_AT_TIMES = ['5:00']
 
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
     code = 'core.generate_daily'
@@ -50,9 +50,18 @@ class GenerateDaily(CronJobBase):
             call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
         daily = Board.objects.filter(created=today).first()
         if daily:
+            print('daily')
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
-            subscribers = list(Subscriber.objects.filter(email_validated=True).values('email', 'identifier'))
-            connection = get_connection(fail_silently=False)
+            subscribers = list(Subscriber.objects.filter(email_validated=True, email='cristi@cbsoft.ro').values('email', 'identifier'))
+            messages = []
             for email in subscribers:
                 ctx['unsubscribe'] = 'https://kids.cbosft.ro/unsubscribe/{}'.format(email['identifier'])
-                send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'], connection=connection)
+                message = render_to_string('frontend/daily_email.html', ctx)
+                text = strip_tags(message)
+                msg = EmailMultiAlternatives('Plansa zilei {}'.format(today.strftime('%d.%m.%Y'), text, settings.EMAIL_FROM, [email['email']]))
+                msg.attach_alternative(message, "text/html")
+                messages.append(msg)
+                #send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])
+            connection = get_connection(fail_silently=False)
+            print(connection)
+            print(connection.send_messages(messages))
