@@ -51,6 +51,7 @@ class GenerateDaily(CronJobBase):
         daily = Board.objects.filter(created=today).first()
         datatuple = []
         if daily:
+            connection = get_connection()
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True, email='cristi@cbsoft.ro').values('email', 'identifier'))
             for email in subscribers:
@@ -60,4 +61,4 @@ class GenerateDaily(CronJobBase):
                 datatuple.append(('Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), text, message, email['email']))
                 #send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])
             print(datatuple)
-            send_mass_html_mail(datatuple)
+            print(send_mass_html_mail(datatuple))

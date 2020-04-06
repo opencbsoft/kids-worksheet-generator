@@ -9,13 +9,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.validators import validate_email as validate_email_address
 
 
-def send_email(template, subject, context, to):
+def send_email(template, subject, context, to, connection=None):
     html_content = render_to_string(template_name=template, context=context)
     text_content = strip_tags(template)
     if type(to) is list:
-        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_FROM, bcc=to)
+        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_FROM, bcc=to, connection=connection)
     else:
-        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_FROM, [to])
+        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_FROM, [to], connection=connection)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     return True
