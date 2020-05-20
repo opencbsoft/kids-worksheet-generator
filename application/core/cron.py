@@ -20,7 +20,7 @@ class GenerateDaily(CronJobBase):
             call_command('generate', all=today.strftime('%d.%m.%Y'), count=2)
             daily = Board.objects.filter(created=today).first()
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
-            subscribers = list(Subscriber.objects.filter(email_validated=True).values('email', 'identifier'))
+            subscribers = list(Subscriber.objects.filter(email_validated=True, unsubscribed=False).values('email', 'identifier'))
             for email in subscribers:
                 ctx['unsubscribe'] = 'https://kids.cbsoft.ro/unsubscribe/{}'.format(email['identifier'])
                 try:

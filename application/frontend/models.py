@@ -8,6 +8,7 @@ class Subscriber(models.Model):
     email = models.EmailField()
     email_validated = models.BooleanField(default=False)
     identifier = models.UUIDField(default=uuid.uuid4)
+    unsubscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email
