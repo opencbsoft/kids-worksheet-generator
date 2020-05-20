@@ -22,7 +22,7 @@ class GenerateDaily(CronJobBase):
             ctx = {'today': today.strftime('%d.%m.%Y'), 'url': daily.file.url}
             subscribers = list(Subscriber.objects.filter(email_validated=True).values('email', 'identifier'))
             for email in subscribers:
-                ctx['unsubscribe'] = 'https://kids.cbosft.ro/unsubscribe/{}'.format(email['identifier'])
+                ctx['unsubscribe'] = 'https://kids.cbsoft.ro/unsubscribe/{}'.format(email['identifier'])
                 try:
                     send_email('frontend/daily_email.html', 'Plansa zilei {}'.format(today.strftime('%d.%m.%Y')), ctx, email['email'])
                 except:

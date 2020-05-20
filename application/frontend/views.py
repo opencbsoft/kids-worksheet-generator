@@ -62,7 +62,8 @@ def unsubscribe(request, uuid):
         context = {'result': '4'}
     if request.method == 'POST':
         if request.POST.get('action', '') == 'unsubscribe':
-            subscriber.delete()
+            subscriber.email_validated = False
+            subscriber.save()
             context = {'result': '5'}
     context['uuid'] = uuid
     context['boards'] = Board.objects.all()[:6]
