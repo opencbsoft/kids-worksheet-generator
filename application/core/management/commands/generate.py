@@ -1,4 +1,5 @@
-import os, datetime
+import datetime
+import os
 
 from PyPDF2 import PdfFileMerger
 from django.conf import settings
@@ -61,10 +62,10 @@ class Command(BaseCommand):
                 merger.append(filename)
             today = datetime.date.today()
             merger.write(os.path.join(settings.MEDIA_ROOT, 'worksheets', '{}.pdf'.format(specific_date.strftime('%d-%m-%Y'))))
-            if not Board.objects.filter(created=specific_date).exists():
-                board = Board(created=specific_date)
-                board.file.name = os.path.join('worksheets/{}.pdf'.format(specific_date.strftime('%d-%m-%Y')))
-                board.save()
+            # if not Board.objects.filter(created=specific_date).exists():
+            #     board = Board(created=specific_date)
+            #     board.file.name = os.path.join('worksheets/{}.pdf'.format(specific_date.strftime('%d-%m-%Y')))
+            #     board.save()
             for filename in generated_files:
                 os.unlink(filename)
             self.stdout.write(self.style.SUCCESS('Successfully generated'))
