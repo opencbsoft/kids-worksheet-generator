@@ -6,7 +6,7 @@ authors = ["Cristi Boboc <cristi@cbsoft.ro>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
-Django = "^4.1.2"
+Django = "^4.1.7"
 psycopg2-binary = "^2.9.5"
 pdfkit = "^1.0.0"
 PyPDF2 = "^2.11.1"
